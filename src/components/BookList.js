@@ -15,7 +15,7 @@ class BookList extends React.Component {
                     {contextBook => {
                     
                     const { books } = contextBook;
-                    const { isDarkTheme, dark, light } = contextTheme;
+                    const {changeTheme, isDarkTheme, dark, light } = contextTheme;
                     const theme = isDarkTheme ? dark : light;
                 
                     return (
@@ -24,6 +24,8 @@ class BookList extends React.Component {
                             <div className="text-center">
                                 <h2 className="section-heading text-uppercase">BookFolio</h2>
                                 <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                                <button type="button" className="btn btn-sm btn-info" style={{marginTop: '-70px'}}
+                                onClick={changeTheme}>Change Theme</button>
                             </div>
                             <div className="row">
         
