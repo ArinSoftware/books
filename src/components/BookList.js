@@ -2,16 +2,24 @@ import React from 'react';
 import './BookList.css';
 import Book from './Book';
 import  { BookContext } from '../contexts/BookContext';
+import  { ThemeContext } from '../contexts/ThemeContext';
 
 class BookList extends React.Component {
 
 
     render() {
         return (
-            <BookContext.Consumer>
-                {value => {
+
+            <ThemeContext.Consumer>{(contextTheme) => (
+                <BookContext.Consumer>
+                    {contextBook => {
+                    
+                    const { books } = contextBook;
+                    const { isDarkTheme, dark, light } = contextTheme;
+                    const theme = isDarkTheme ? dark : light;
+                
                     return (
-                        <section className="page-section bg-light" id="portfolio">
+                        <section className="page-section" style={{background: theme.bg, color:theme.txt}} id="portfolio">
                         <div className="container">
                             <div className="text-center">
                                 <h2 className="section-heading text-uppercase">BookFolio</h2>
@@ -19,7 +27,7 @@ class BookList extends React.Component {
                             </div>
                             <div className="row">
         
-                                {value.books.map((book, i) => {
+                                {books.map((book, i) => {
                                     return <Book book={book}
                                         key={i}
                                     />
@@ -31,6 +39,14 @@ class BookList extends React.Component {
                     )
                 }}
             </BookContext.Consumer>
+            )}
+
+
+            </ThemeContext.Consumer>
+
+
+
+
         )
     }
 

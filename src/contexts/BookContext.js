@@ -54,7 +54,7 @@ class BookContextProvider extends React.Component {
 
   render() {
     return (
-      <BookContext.Provider value={this.state}>
+      <BookContext.Provider value={{...this.state}}>
         {this.props.children}
       </BookContext.Provider>
     )
