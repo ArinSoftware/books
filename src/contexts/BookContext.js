@@ -5,7 +5,7 @@ export const BookContext = createContext()
 
 const BookContextProvider = (props) => {
 
-  const [books] = useState([
+  const [books, setBooks] = useState([
     {      
       title: "Kırmızı Pazartesi",
       author: "Gabriel Garcia Marquez",
@@ -50,9 +50,14 @@ const BookContextProvider = (props) => {
     }
   ])
 
+  const addBook = (title, author, imageURL) => {
+    setBooks([{title, author, imageURL}, ...books])
+
+    
+  }
 
   return (
-    <BookContext.Provider value={{books}}>
+    <BookContext.Provider value={{books, addBook}}>
       {props.children}
     </BookContext.Provider>
   )

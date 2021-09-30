@@ -18,7 +18,7 @@ const Book = ({book}) => {
                     <div className="portfolio-hover" style={{background:bookTheme.hover}}>
                         <div className="portfolio-hover-content"><i className="fas fa-plus fa-3x"></i></div>
                     </div>
-                    <img className="img-fluid" src={book.imageURL} alt="" />
+                    <img style={{width:"600px;" ,height: "600px" }}className="img-fluid" src={book.imageURL} alt="" />
                 </a>
                 <div className="portfolio-caption">
                     <div className="portfolio-caption-heading">{book.title}</div>
