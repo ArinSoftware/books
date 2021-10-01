@@ -1,31 +1,35 @@
 import React, { useContext, useState } from 'react'
+import { Button, Form } from 'react-bootstrap'
 import { BookContext } from '../contexts/BookContext'
-import { Button, Form } from 'react-bootstrap';
-import { v4 as uuidv4 } from 'uuid';
 
 
-const AddBook = ({handleClose}) => {
+const EditBook = ({book,handleCloseEdit}) => {
 
-    const { addBook } = useContext(BookContext)
+    const { editBook } = useContext(BookContext)
 
-    const [title, setTitle] = useState("")
-    const [author, setAuthor] = useState("")
-    const [pageNum, setPageNum] = useState("")
-    const [imageURL, setImageURL] = useState("")
-    const [topic, setTopic] = useState("")
+
+    const [title, setTitle] = useState(book.title)
+    const [author, setAuthor] = useState(book.author)
+    const [pageNum, setPageNum] = useState(book.pageNum)
+    const [imageURL, setImageURL] = useState(book.imageURL)
+    const [topic, setTopic] = useState(book.topic)
+
+    const id= book.id
+    const updatedBook = {id ,title, author, pageNum, imageURL, topic}
 
     const handleSubmit = (e) => {
         e.preventDefault()
         
         if(!title || !author || !pageNum || !imageURL || !topic) return;
         
-        addBook(uuidv4(),title, author,pageNum, imageURL,topic)
+        editBook(id,updatedBook)
         
-        handleClose()      
+        handleCloseEdit()      
     }
 
-    return (
 
+
+    return (
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Book Name</Form.Label>
@@ -58,4 +62,4 @@ const AddBook = ({handleClose}) => {
     )
 }
 
-export default AddBook
+export default EditBook

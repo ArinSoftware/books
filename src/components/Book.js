@@ -3,6 +3,7 @@ import './Book.css';
 import  { ThemeContext } from '../contexts/ThemeContext';
 import { BookContext } from '../contexts/BookContext';
 import { Button, Modal } from 'react-bootstrap';
+import EditBook from './EditBook';
 
 
 
@@ -14,6 +15,10 @@ const Book = ({book}) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [showEdit, setShowEdit] = useState(false);
+    const handleCloseEdit = () => setShowEdit(false);
+    const handleShowEdit = () => setShowEdit(true);
 
     const bookTheme = darkTheme ? theme.dark : theme.light;
 
@@ -32,8 +37,9 @@ const Book = ({book}) => {
                     <div className="portfolio-caption-heading">{book.title}</div>
                     <div className="portfolio-caption-subheading ">{book.author}</div>
                     <div className="portfolio-caption-subheading text-muted">{book.pageNum} Sayfa</div>
-                    <button onClick={() =>  removeBook(book.title)} className="btn btn-danger btn-sm mt-2">Delete</button>
+                    <button onClick={() =>  removeBook(book.id)} className="btn btn-danger btn-sm mt-2">Delete</button>
                     <Button variant="success btn-sm mt-2"  onClick={handleShow}>Details </Button>
+                    <Button variant="warning btn-sm mt-2"  onClick={handleShowEdit}>Edit </Button>
                         
                    
 
@@ -43,6 +49,16 @@ const Book = ({book}) => {
                         </Modal.Header>
                         <Modal.Body>
                             {book.topic}    
+                        </Modal.Body>
+                        
+                    </Modal>
+
+                    <Modal show={showEdit} onHide={handleCloseEdit}>
+                        <Modal.Header >
+                            <Modal.Title>Edit Books</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <EditBook book={book} handleCloseEdit={handleCloseEdit} />   
                         </Modal.Body>
                         
                     </Modal>
