@@ -1,11 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './Book.css';
 import  { ThemeContext } from '../contexts/ThemeContext';
+import { BookContext } from '../contexts/BookContext';
+import { Button, Modal } from 'react-bootstrap';
+
+
 
 const Book = ({book}) => {
 
-
+    const {removeBook} = useContext(BookContext)
     const {theme, darkTheme} = useContext(ThemeContext)
+    
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const bookTheme = darkTheme ? theme.dark : theme.light;
 
@@ -18,11 +26,26 @@ const Book = ({book}) => {
                     <div className="portfolio-hover" style={{background:bookTheme.hover}}>
                         <div className="portfolio-hover-content"><i className="fas fa-plus fa-3x"></i></div>
                     </div>
-                    <img style={{width:"600px;" ,height: "600px" }}className="img-fluid" src={book.imageURL} alt="" />
+                    <img style={{width:"600px" ,height: "600px" }}className="img-fluid" src={book.imageURL} alt="" />
                 </a>
                 <div className="portfolio-caption">
                     <div className="portfolio-caption-heading">{book.title}</div>
-                    <div className="portfolio-caption-subheading text-muted">{book.author}</div>
+                    <div className="portfolio-caption-subheading ">{book.author}</div>
+                    <div className="portfolio-caption-subheading text-muted">{book.pageNum} Sayfa</div>
+                    <button onClick={() =>  removeBook(book.title)} className="btn btn-danger btn-sm mt-2">Delete</button>
+                    <Button variant="success btn-sm mt-2"  onClick={handleShow}>Details </Button>
+                        
+                   
+
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header >
+                            <Modal.Title>Book Details</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {book.topic}    
+                        </Modal.Body>
+                        
+                    </Modal>
                 </div>
             </div>
         </div>
